@@ -1,14 +1,11 @@
 function showAlertBox(message, time, callback) {
-    $('<div class="shadow"><div class="tipBox1"><span class="contentText"></span></div></div>').appendTo('body');
-    $('.contentText').text(message);
-    var hh = window.innerHeight;
-    var shadow = $('.shadow');
-    var tipBox = $('.tipBox1');
-    var thx = tipBox.height();
-    var mhx = (hh - thx) / 2;
-    tipBox.css('marginTop', mhx);
+    $('<div class="shadow"><div class="alertBox"><span class="alertMsg"></span></div></div>').appendTo('body');
+    $('.alertMsg').text(message);
+    var alertBox = $('.alertBox');
+    var mhx = (window.innerHeight - alertBox.height()) / 2;
+    alertBox.css('marginTop', mhx);
     setTimeout(function () {
-        shadow.remove();
+        $('.shadow').remove();
         $('.contentText').empty();
         if (typeof callback == "function") {
             callback();
@@ -18,32 +15,25 @@ function showAlertBox(message, time, callback) {
 
 function showConfirmBox(message, title, btnOk, btnCancel, okCallback, cancelCallback) {
     $('<div class="shadow">' +
-        '<div class="tipBox2">' +
+        '<div class="confirmBox">' +
         '<div class="contentBox">' +
-        '<span class="titleTs"></span>' +
-        '<span class="contentTs"></span>' +
+        '<span class="confirmTitle"></span>' +
+        '<span class="confirmMsg"></span>' +
         '</div><div class="okBtn"></div>' +
         '<div class="cancelBtn"></div></div></div>').appendTo('body');
-
-    var hh = window.innerHeight;
+    $('.confirmMsg').text(message);
+    $('.confirmTitle').text(title || "提示");
     var shadow = $('.shadow');
-    var tipBox = $('.tipBox2');
-    var okBtn = $('.okBtn');
-    var cancelBtn = $('.cancelBtn');
-    var th = tipBox.height();
-    var mh = (hh - th) / 2;
-    okBtn.text(btnOk || "确定");
-    cancelBtn.text(btnCancel || "取消");
-    $('.contentTs').text(message);
-    $('.titleTs').text(title || "提示");
-    tipBox.css('marginTop', mh);
+    var confirmBox = $('.confirmBox');
+    var mh = (window.innerHeight - confirmBox.height()) / 2;
+    confirmBox.css('marginTop', mh);
 
-    okBtn.click(function () {
+    $('.okBtn').text(btnOk || "确定").click(function () {
         shadow.remove();
         typeof okCallback == "function" ? okCallback() : null;
     });
 
-    cancelBtn.click(function () {
+    $('.cancelBtn').text(btnCancel || "取消").click(function () {
         shadow.remove();
         typeof cancelCallback == "function" ? cancelCallback() : null;
     });
